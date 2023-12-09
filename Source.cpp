@@ -321,6 +321,13 @@ void Handle() {
 		if (checkWin(p, p[i])) {
 			cout << "NGUOI CHOI " << player << " THANG.";
 			break;
+		}if (i == 24) {
+				i++;
+			}
+			break;
+		}
+		if (i == 24) {
+			cout << "2 NGUOI CHOI HOA ";
 		}
 	}
 	
