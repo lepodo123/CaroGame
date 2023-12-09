@@ -1,22 +1,19 @@
 #include <iostream>
+#include <thread>
+#include <chrono>
 using namespace std;
 
-struct Point
-{
+struct Point {
 	int x;
 	int y;
 	int player = -1;
 };
 
-bool checkDuplicate(Point point, Point p[])
-{
-	for (int i = 0; i < 25; i++)
-	{
+bool checkDuplicate(Point point, Point p[]) {
+	for (int i = 0; i < 25; i++) {
 
-		if (p[i].x == point.x && p[i].y == point.y)
-		{
-			if (p[i].player != -1)
-			{
+		if (p[i].x == point.x && p[i].y == point.y) {
+			if (p[i].player != -1) {
 				return true;
 			}
 		}
@@ -24,146 +21,9 @@ bool checkDuplicate(Point point, Point p[])
 	return false;
 }
 
-bool checkDiagonal(Point point, Point p[])
-{
-	if (point.x == 3 && point.y == 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x - 1 && p[i].y == point.y - 1 && point.player == p[i].player)
-			{
-				if (p[i].x == point.x + 1 && p[i].y == point.y + 1 && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-			else if (p[i].x == point.x - 1 && p[i].y + 1 == point.y && point.player == p[i].player)
-			{
-				if (p[i].x == point.x + 1 && p[i].y - 1 == point.y && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-		}
-	}
-	else if (point.x < 3 && point.y < 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x + 1 && p[i].y == point.y + 1 && point.player == p[i].player)
-			{
-				if (p[i].x == point.x + 2 && p[i].y == point.y + 2 && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-		}
-	}
-	else if (point.x > 3 && point.y > 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x - 1 && p[i].y == point.y - 1 && point.player == p[i].player)
-			{
-				if (p[i].x == point.x - 2 && p[i].y == point.y - 2 && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-		}
-	}
-	else if (point.x < 3 && point.y > 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x + 1 && p[i].y == point.y - 1 && point.player == p[i].player)
-			{
-				if (p[i].x == point.x + 2 && p[i].y == point.y - 2 && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-		}
-	}
-	else if (point.x > 3 && point.y < 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x - 1 && p[i].y == point.y + 1 && point.player == p[i].player)
-			{
-				if (p[i].x == point.x - 2 && p[i].y == point.y + 2 && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-		}
-	}
-	else if (point.x == 3 && point.y == 1 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x + 1 && p[i].y == point.y - 1 && point.player == p[i].player)
-			{
-				if (p[i].x == point.x + 2 && p[i].y == point.y - 2 && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-			else if (p[i].x == point.x + 1 && p[i].y == point.y + 1 && point.player == p[i].player)
-			{
-				if (p[i].x == point.x + 2 && p[i].y == point.y + 2 && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-		}
-	}
-	else if (point.x == 3 && point.y == 5 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x - 1 && p[i].y == point.y - 1 && point.player == p[i].player)
-			{
-				if (p[i].x == point.x - 2 && p[i].y == point.y - 2 && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-			else if (p[i].x == point.x + 1 && p[i].y == point.y - 1 && point.player == p[i].player)
-			{
-				if (p[i].x == point.x + 2 && p[i].y == point.y - 2 && point.player == p[i].player)
-				{
-					return true;
-				}
-			}
-		}
-	}
-	return false;
-}
 
-Point Input(int player)
-{
-	Point p;
 
-	cout << "Luot danh cua choi " << player;
-	cout << "\nNhap dong(1-5): ";
-	cin >> p.x;
-	cout << "\nNhap cot(1-5): ";
-	cin >> p.y;
-	p.player = player % 2;
 
-	return p;
-}
-
-bool checkWin(Point p[], Point point)
-{
-
-	if (checkRow(point, p) || checkColumn(point, p) || checkDiagonal(point, p))
-	{
-		return true;
-	}
-	return false;
-}
 
 void DrawBoard(Point p[])
 {
@@ -219,78 +79,58 @@ void DrawBoard(Point p[])
 	}
 	cout << "\n";
 }
-bool checkRow(Point point, Point p[])
-{
-	if (point.x == 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x - 1 && p[i].player == point.player && p[i].y == point.y)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].x == point.x - 2 && p[j].player == point.player && p[i].y == point.y)
-					{
+bool checkRow(Point point, Point p[]) {
+	if (point.x == 3 && point.player != -1) {
+		for (int i = 0; i < 25; i++) {
+			if (p[i].x == point.x - 1 && p[i].player == point.player && p[i].y == point.y) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].x == point.x - 2 && p[j].player == point.player && p[j].y == point.y) {
 						return true;
 					}
-					else if (p[j].x == point.x + 1 && p[j].player == point.player && p[i].y == point.y)
-					{
+					else if (p[j].x == point.x + 1 && p[j].player == point.player && p[j].y == point.y) {
+						return true;
+					}
+				}
+
+			}
+			else if (p[i].x == point.x + 1 && p[i].player == point.player && p[i].y == point.y) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].x == point.x + 2 && p[j].player == point.player && p[j].y == point.y) {
 						return true;
 					}
 				}
 			}
-			else if (p[i].x == point.x + 1 && p[i].player == point.player && p[i].y == point.y)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].x == point.x + 2 && p[j].player == point.player && p[i].y == point.y)
-					{
-						return true;
-					}
-				}
-			}
+
 		}
 	}
-	else if (point.x < 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x - 1 && p[i].player == point.player && p[i].y == point.y)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].x == point.x + 1 && p[j].player == point.player && p[i].y == point.y)
-					{
+	else if (point.x < 3 && point.player != -1) {
+		for (int i = 0; i < 25; i++) {
+			if (p[i].x == point.x - 1 && p[i].player == point.player && p[i].y == point.y) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].x == point.x + 1 && p[j].player == point.player && p[j].y == point.y) {
+						return true;
+					}
+				}
+
+			}
+			else if (p[i].x == point.x + 1 && p[i].player == point.player && p[i].y == point.y) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].x == point.x + 2 && p[j].player == point.player && p[j].y == point.y) {
 						return true;
 					}
 				}
 			}
-			else if (p[i].x == point.x + 1 && p[i].player == point.player && p[i].y == point.y)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].x == point.x + 2 && p[j].player == point.player && p[i].y == point.y)
-					{
-						return true;
-					}
-				}
-			}
+
 		}
 	}
-	else if (point.x > 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].x == point.x - 1 && p[i].player == point.player)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].x == point.x - 2 && p[j].player == point.player)
-					{
+	else if (point.x > 3 && point.player != -1) {
+		for (int i = 0; i < 25; i++) {
+			if (p[i].x == point.x - 1 && p[i].player == point.player && p[i].y == point.y) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].x == point.x - 2 && p[j].player == point.player && p[j].y == point.y) {
 						return true;
 					}
-					else if (p[j].x == point.x + 1 && p[j].player == point.player)
-					{
+					else if (p[j].x == point.x + 1 && p[j].player == point.player && p[j].y == point.y) {
 						return true;
 					}
 				}
@@ -300,83 +140,135 @@ bool checkRow(Point point, Point p[])
 
 	return false;
 }
-bool checkColumn(Point point, Point p[])
-{
-	if (point.y == 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].y == point.y - 1 && p[i].player == point.player && p[i].x == point.x)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].y == point.y - 2 && p[j].player == point.player && p[i].x == point.x)
-					{
+bool checkColumn(Point point, Point p[]) {
+	if (point.y == 3 && point.player != -1) {
+		for (int i = 0; i < 25; i++) {
+			if (p[i].y == point.y - 1 && p[i].player == point.player && p[i].x == point.x) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].y == point.y - 2 && p[j].player == point.player && p[j].x == point.x) {
 						return true;
 					}
-					else if (p[j].y == point.y + 1 && p[j].player == point.player && p[i].x == point.x)
-					{
+					else if (p[j].y == point.y + 1 && p[j].player == point.player && p[j].x == point.x) {
+						return true;
+					}
+				}
+
+			}
+			else if (p[i].y == point.y + 1 && p[i].player == point.player && p[i].x == point.x) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].y == point.y + 2 && p[j].player == point.player && p[j].x == point.x) {
 						return true;
 					}
 				}
 			}
-			else if (p[i].y == point.y + 1 && p[i].player == point.player && p[i].x == point.x)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].y == point.y + 2 && p[j].player == point.player && p[i].x == point.x)
-					{
+
+
+		}
+	}
+	else if (point.y < 3 && point.player != -1) {
+		for (int i = 0; i < 25; i++) {
+			if (p[i].y == point.y - 1 && p[i].player == point.player && p[i].x == point.x) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].y == point.y + 1 && p[j].player == point.player && p[j].x == point.x) {
 						return true;
 					}
+				}
+
+			}
+			else if (p[i].x == point.y + 1 && p[i].player == point.player && p[i].x == point.x) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].y == point.y + 2 && p[j].player == point.player && p[j].x == point.x) {
+						return true;
+					}
+				}
+			}
+
+		}
+	}
+	else if (point.y > 3 && point.player != -1) {
+		for (int i = 0; i < 25; i++) {
+			if (p[i].y == point.y - 1 && p[i].player == point.player && p[i].x == point.x) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].y == point.y - 2 && p[j].player == point.player && p[j].x == point.x) {
+						return true;
+					}
+					else if (p[j].y == point.y + 1 && p[j].player == point.player && p[j].x == point.x
+						) {
+						return true;
+					}
+				}
+
+			}
+		}
+	}
+	return false;
+}
+bool checkDiagonal(Point point, Point p[]) {
+	for (int i = 0; i < 25; i++) {
+
+		if (p[i].x == point.x - 1 && p[i].y == point.y - 1 && point.player == p[i].player) {
+
+			for (int j = 0; j < 25; j++) {
+				if (p[j].x == point.x + 1 && p[j].y == point.y + 1 && point.player == p[j].player) {
+					return true;
+				}
+				else if (p[j].x == point.x - 2 && p[j].y == point.y - 2 && point.player == p[j].player) {
+					return true;
+				}
+			}
+		}
+		if (p[i].x == point.x - 1 && p[i].y == point.y + 1 && point.player == p[i].player) {
+			for (int j = 0; j < 25; j++) {
+				if (p[j].x == point.x - 2 && p[j].y == point.y + 2 && point.player == p[j].player) {
+					return true;
+				}
+				else if (p[j].x == point.x + 1 && p[j].y == point.y - 1 && point.player == p[j].player) {
+					return true;
+				}
+			}
+		}
+		if (p[i].x == point.x + 1 && p[i].y == point.y - 1 && point.player == p[i].player) {
+
+			for (int j = 0; j < 25; j++) {
+				if (p[j].x == point.x + 2 && p[j].y == point.y - 2 && point.player == p[j].player) {
+					return true;
+				}
+				else if (p[j].x == point.x - 1 && p[j].y == point.y + 1 && point.player == p[j].player) {
+					return true;
+				}
+			}
+		}
+		if (p[i].x == point.x + 1 && p[i].y == point.y + 1 && point.player == p[i].player) {
+
+			for (int j = 0; j < 25; j++) {
+				if (p[j].x == point.x + 2 && p[j].y == point.y + 2 && point.player == p[j].player) {
+					return true;
+				}
+				else if (p[j].x == point.x - 1 && p[j].y == point.y - 1 && point.player == p[j].player) {
+					return true;
 				}
 			}
 		}
 	}
-	else if (point.y < 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].y == point.y - 1 && p[i].player == point.player && p[i].x == point.x)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].y == point.y + 1 && p[j].player == point.player && p[i].x == point.x)
-					{
-						return true;
-					}
-				}
-			}
-			else if (p[i].x == point.y + 1 && p[i].player == point.player && p[i].x == point.x)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].y == point.y + 2 && p[j].player == point.player && p[i].x == point.x)
-					{
-						return true;
-					}
-				}
-			}
-		}
-	}
-	else if (point.y > 3 && point.player != -1)
-	{
-		for (int i = 0; i < 25; i++)
-		{
-			if (p[i].y == point.y - 1 && p[i].player == point.player && p[i].x == point.x)
-			{
-				for (int j = 0; j < 25; j++)
-				{
-					if (p[j].y == point.y - 2 && p[j].player == point.player && p[i].x == point.x)
-					{
-						return true;
-					}
-					else if (p[j].y == point.y + 1 && p[j].player == point.player && p[i].x == point.x)
-					{
-						return true;
-					}
-				}
-			}
-		}
+	return false;
+}
+
+Point Input(int player, int size) {
+	
+	Point p;
+	cout << "Luot danh cua choi " << player;
+	cout << "\nNhap dong(1-" << size << "): ";
+	cin >> p.x;
+	cout << "\nNhap cot(1-" << size << "): ";
+	cin >> p.y;
+	p.player = player;
+	return p;
+}
+
+bool checkWin(Point p[], Point point) {
+
+	if (checkRow(point, p) || checkColumn(point, p) || checkDiagonal(point, p)) {
+		return true;
 	}
 	return false;
 }
@@ -426,19 +318,16 @@ bool Handle(Point p[], int size)
 	}
 	return false;
 }
-int main()
-{
+int main() {
 	int size;
-	Point p[100];
+	Point p[10];
 	cout << "Nhap kich thuoc ban co: ";
 	cin >> size;
 	p[size];
-	if (Handle(p, size) == false)
-	{
+	if (Handle(p, size)==false) {
 		cout << "\nBan co muon mo rong ban co. Neu muon hay nhap kich thuoc (nhap -1 de thoat): ";
 		cin >> size;
-		if (size > 0)
-		{
+		if (size > 0) {
 			Handle(p, size);
 		}
 	}
