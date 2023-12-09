@@ -189,86 +189,52 @@ bool checkColumn(Point point, Point p[]) {
 	return false;
 }
 bool checkDiagonal(Point point, Point p[]) {
-	if (point.x == 3 && point.y == 3 && point.player != -1) {
 		for (int i = 0; i < 25; i++) {
+			
 			if (p[i].x == point.x - 1 && p[i].y == point.y - 1 && point.player == p[i].player) {
-				if (p[i].x == point.x+1 && p[i].y == point.y+1&& point.player == p[i].player) {
-					return true;
+				
+				for (int j = 0; j < 25; j++) {
+					if (p[j].x == point.x + 1 && p[j].y == point.y + 1 && point.player == p[j].player) {
+						return true;
+					}
+					else if(p[j].x == point.x - 2 && p[j].y == point.y - 2 && point.player == p[j].player) {
+						return true;
+					}
 				}
 			}
-			else if (p[i].x == point.x - 1 && p[i].y+1 == point.y && point.player == p[i].player) {
-				if (p[i].x == point.x + 1 && p[i].y - 1 == point.y && point.player == p[i].player) {
-					return true;
+			 if (p[i].x == point.x - 1 && p[i].y == point.y + 1 && point.player == p[i].player) {
+				for (int j = 0; j < 25; j++) {
+					if (p[j].x == point.x - 2 && p[j].y == point.y + 2 && point.player == p[j].player) {
+						return true;
+					}
+					else if (p[j].x == point.x + 1 && p[j].y == point.y - 1 && point.player == p[j].player) {
+						return true;
+					}
 				}
 			}
-		}
-	}
-	else if (point.x < 3 && point.y < 3 && point.player != -1) {
-		for (int i = 0; i < 25; i++) {
-			if (p[i].x == point.x + 1 && p[i].y == point.y + 1 && point.player == p[i].player) {
-				if (p[i].x == point.x + 2 && p[i].y == point.y + 2 && point.player == p[i].player) {
-					return true;
+			 if(p[i].x == point.x + 1 && p[i].y  == point.y - 1&& point.player == p[i].player) {
+				
+				for (int j = 0; j < 25; j++) {
+					if (p[j].x == point.x + 2 && p[j].y  == point.y - 2 && point.player == p[j].player) {
+						return true;
+					}
+					else if (p[j].x == point.x -1 && p[j].y == point.y + 1 && point.player == p[j].player) {
+						return true;
+					}
 				}
 			}
-		}
-	}
-	else if (point.x > 3 && point.y > 3 && point.player != -1) {
-		for (int i = 0; i < 25; i++) {
-			if (p[i].x == point.x -1  && p[i].y == point.y - 1 && point.player == p[i].player) {
-				if (p[i].x == point.x - 2 && p[i].y == point.y - 2 && point.player == p[i].player) {
-					return true;
-				}
-			}
-		}
-	}
-	else if (point.x < 3 && point.y > 3 && point.player != -1) {
-		for (int i = 0; i < 25; i++) {
-			if (p[i].x == point.x + 1 && p[i].y == point.y - 1 && point.player == p[i].player) {
-				if (p[i].x == point.x + 2 && p[i].y == point.y - 2 && point.player == p[i].player) {
-					return true;
-				}
-			}
-		}
-
-	}
-	else if (point.x > 3 && point.y < 3 && point.player != -1) {
-		for (int i = 0; i < 25; i++) {
-			if (p[i].x == point.x - 1 && p[i].y == point.y + 1 && point.player == p[i].player) {
-				if (p[i].x == point.x - 2 && p[i].y == point.y + 2 && point.player == p[i].player) {
-					return true;
+			 if (p[i].x == point.x + 1 && p[i].y == point.y + 1 && point.player == p[i].player) {
+				
+				for (int j = 0; j < 25; j++) {
+					if (p[j].x == point.x + 2 && p[j].y  == point.y + 2 && point.player == p[j].player) {
+						return true;
+					}
+					else if (p[j].x == point.x - 1 && p[j].y== point.y - 1 && point.player == p[j].player) {
+						return true;
+					}
 				}
 			}
 		}
-
-	}
-	else if (point.x == 3 && point.y == 1 && point.player != -1) {
-		for (int i = 0; i < 25; i++) {
-			if (p[i].x == point.x + 1 && p[i].y == point.y - 1 && point.player == p[i].player) {
-				if (p[i].x == point.x + 2 && p[i].y == point.y - 2 && point.player == p[i].player) {
-					return true;
-				}
-			}
-			else if (p[i].x == point.x + 1 && p[i].y == point.y + 1 && point.player == p[i].player) {
-				if (p[i].x == point.x + 2 && p[i].y == point.y + 2 && point.player == p[i].player) {
-					return true;
-				}
-			}
-		}
-	}
-	else if (point.x == 3 && point.y == 5 && point.player != -1) {
-		for (int i = 0; i < 25; i++) {
-			if (p[i].x == point.x - 1 && p[i].y == point.y - 1 && point.player == p[i].player) {
-				if (p[i].x == point.x - 2 && p[i].y == point.y - 2 && point.player == p[i].player) {
-					return true;
-				}
-			}
-			else if (p[i].x == point.x + 1 && p[i].y == point.y - 1 && point.player == p[i].player) {
-				if (p[i].x == point.x + 2 && p[i].y == point.y - 2 && point.player == p[i].player) {
-					return true;
-				}
-			}
-		}
-	}
 	return false;
 }
 
