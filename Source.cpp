@@ -303,7 +303,7 @@ void Handle() {
 			while (true)
 			{
 				point = Input(player);
-				if (point.x > 0 && point.x < 6 && point.y> 0 && point.y < 5) {
+				if (point.x > 0 && point.x < 6 && point.y> 0 && point.y < 6) {
 					break;
 				}
 				DrawBoard(p);
