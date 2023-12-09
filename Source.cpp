@@ -52,16 +52,15 @@ bool checkRow(Point point, Point p[]) {
 	}
 	else if (point.x > 3 && point.player != -1) {
 		for (int i = 0; i < 25; i++) {
-			if (p[i].x == point.x - 1 && p[i].player == point.player) {
+			if (p[i].x == point.x - 1 && p[i].player == point.player && p[i].y == point.y) {
 				for (int j = 0; j < 25; j++) {
-					if (p[j].x == point.x - 2 && p[j].player == point.player) {
+					if (p[j].x == point.x - 2 && p[j].player == point.player && p[j].y == point.y) {
 						return true;
 					}
-					else if (p[j].x == point.x + 1 && p[j].player == point.player) {
+					else if (p[j].x == point.x + 1 && p[j].player == point.player && p[j].y == point.y) {
 						return true;
 					}
 				}
-
 			}
 		}
 	}
