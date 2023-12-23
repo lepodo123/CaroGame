@@ -57,17 +57,6 @@ void DrawBoard(Point p[], int size) {
 	}
 	cout << "\n";
 }
-bool checkDuplicate(Point point, Point p[]) {
-	for (int i = 0; i < 25; i++) {
-
-		if (p[i].x == point.x && p[i].y == point.y) {
-			if (p[i].player != -1) {
-				return true;
-			}
-		}
-	}
-	return false;
-}
 Point Input(int player, int size) {
 
 	Point p;
@@ -80,9 +69,6 @@ Point Input(int player, int size) {
 	return p;
 }
 
-bool checkWin(Point p[], Point point) {
-	return false;
-}
 bool Handle(Point p[], int size, int oldsize)
 {
 
