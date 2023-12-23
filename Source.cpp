@@ -10,16 +10,12 @@ struct Point {
 };
 
 
-
 void DrawBoard(Point p[], int size) {
-
 	system("cls");
 	for (int i = 0; i < size; i++) {
 		if (i == 0) {
 			cout << "\n";
-
 			for (int z = 0; z < size + 1; z++) {
-
 				if (z == 0) {
 					cout << "      |";
 				}
@@ -31,10 +27,10 @@ void DrawBoard(Point p[], int size) {
 			for (int z = 0; z < size; z++) {
 				cout << "----------";
 			}
+
 		}
 		cout << "\n";
 		for (int j = 0; j < size + 1; j++) {
-
 			if (j == 0) {
 				cout << "  " << i + 1 << "   |";
 			}
@@ -52,7 +48,6 @@ void DrawBoard(Point p[], int size) {
 						}
 					}
 				}				cout << "  " << c << "   |";
-
 			}
 		}
 		cout << "\n";
@@ -73,6 +68,7 @@ bool checkDuplicate(Point point, Point p[]) {
 	}
 	return false;
 }
+
 bool checkRow(Point point, Point p[]) {
 	if (point.x == 3 && point.player != -1) {
 		for (int i = 0; i < 25; i++) {
@@ -221,14 +217,34 @@ bool checkDiagonal(Point point, Point p[]) {
 				}
 			}
 		}
-		cout << "\n";
-		for (int z = 0; z < size; z++) {
-			cout << "----------";
+		if (p[i].x == point.x + 1 && p[i].y == point.y - 1 && point.player == p[i].player) {
+
+			for (int j = 0; j < 25; j++) {
+				if (p[j].x == point.x + 2 && p[j].y == point.y - 2 && point.player == p[j].player) {
+					return true;
+				}
+				else if (p[j].x == point.x - 1 && p[j].y == point.y + 1 && point.player == p[j].player) {
+					return true;
+				}
+			}
+		}
+		if (p[i].x == point.x + 1 && p[i].y == point.y + 1 && point.player == p[i].player) {
+
+			for (int j = 0; j < 25; j++) {
+				if (p[j].x == point.x + 2 && p[j].y == point.y + 2 && point.player == p[j].player) {
+					return true;
+				}
+				else if (p[j].x == point.x - 1 && p[j].y == point.y - 1 && point.player == p[j].player) {
+					return true;
+				}
+			}
 		}
 	}
-	cout << "\n";
+	return false;
 }
+
 Point Input(int player, int size) {
+
 	Point p;
 	cout << "Luot danh cua choi " << player;
 	cout << "\nNhap dong(1-" << size << "): ";
@@ -237,6 +253,14 @@ Point Input(int player, int size) {
 	cin >> p.y;
 	p.player = player;
 	return p;
+}
+
+bool checkWin(Point p[], Point point) {
+
+	if (checkRow(point, p) || checkColumn(point, p) || checkDiagonal(point, p)) {
+		return true;
+	}
+	return false;
 }
 bool Handle(Point p[], int size, int oldsize)
 {
