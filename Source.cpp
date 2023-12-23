@@ -10,12 +10,12 @@ struct Point {
 };
 
 
-void DrawBoard(Point p[],int size) {
+void DrawBoard(Point p[], int size) {
 	system("cls");
 	for (int i = 0; i < size; i++) {
 		if (i == 0) {
 			cout << "\n";
-			for (int z = 0; z < size+1; z++) {
+			for (int z = 0; z < size + 1; z++) {
 				if (z == 0) {
 					cout << "      |";
 				}
@@ -27,10 +27,10 @@ void DrawBoard(Point p[],int size) {
 			for (int z = 0; z < size; z++) {
 				cout << "----------";
 			}
-			
+
 		}
 		cout << "\n";
-		for (int j = 0; j < size+1; j++) {
+		for (int j = 0; j < size + 1; j++) {
 			if (j == 0) {
 				cout << "  " << i + 1 << "   |";
 			}
@@ -44,7 +44,6 @@ void DrawBoard(Point p[],int size) {
 							c = 'X';
 						}
 						else {
-              >>>>>>> developer
 							c = 'O';
 						}
 					}
@@ -55,7 +54,6 @@ void DrawBoard(Point p[],int size) {
 		for (int z = 0; z < size; z++) {
 			cout << "----------";
 		}
-        >>>>>>> developer
 	}
 	cout << "\n";
 }
@@ -246,7 +244,7 @@ bool checkDiagonal(Point point, Point p[]) {
 }
 
 Point Input(int player, int size) {
-	
+
 	Point p;
 	cout << "Luot danh cua choi " << player;
 	cout << "\nNhap dong(1-" << size << "): ";
@@ -264,15 +262,17 @@ bool checkWin(Point p[], Point point) {
 	}
 	return false;
 }
-bool Handle(Point p[], int size)
+bool Handle(Point p[], int size, int oldsize)
 {
 
 	DrawBoard(p, size);
 	int player = 0;
 	int timepturn = 45;
-
-	for (int i = 0; i < size * size; i++)
+	cout << oldsize;
+	cout << size;
+	for (int i = oldsize; i < size * size; i++)
 	{
+
 		player = i % 2;
 		while (true)
 		{
@@ -281,6 +281,10 @@ bool Handle(Point p[], int size)
 			while (true)
 			{
 				point = Input(player, size);
+				if (point.x == -1 || point.y == -1) {
+					cout << "NGUOI CHOI " << (player + 1) % 2 << " THANG.";
+					return true;
+				}
 				if (point.x > 0 && point.x <= size && point.y > 0 && point.y <= size)
 				{
 					break;
@@ -306,24 +310,30 @@ bool Handle(Point p[], int size)
 		if (i == size * size - 1)
 		{
 			cout << "2 NGUOI CHOI HOA ";
+			return false;
 		}
 	}
 	return false;
 }
 int main() {
 	int size;
-	Point p[10];
+	int oldsize = 0;
+	Point p[100];
 	cout << "Nhap kich thuoc ban co: ";
 	cin >> size;
 	p[size];
-	if (Handle(p, size)==false) {
+	bool win = Handle(p, size, oldsize);
+	while (win != true) {
+		oldsize = size * size;
 		cout << "\nBan co muon mo rong ban co. Neu muon hay nhap kich thuoc (nhap -1 de thoat): ";
 		cin >> size;
+
 		if (size > 0) {
-			Handle(p, size);
+			win = Handle(p, size, oldsize);
 		}
+
+		cout << "\n";
 	}
-	cout << "\n";
 	system("pause");
 	return 0;
 }
